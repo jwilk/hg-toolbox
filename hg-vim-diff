@@ -1,0 +1,16 @@
+#!/bin/sh
+
+for file in "$@"
+do
+  fileo=`mktemp` || exit 1
+  hg cat -- "$file" > "$fileo"
+  if cmp -s -- "$file" "$fileo"
+  then
+    :
+  else
+    vim -d "$file" "$fileo"
+  fi
+  rm -f "$fileo"
+done
+
+# vim:ts=2 sw=2 et

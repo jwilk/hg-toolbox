@@ -2,7 +2,7 @@
 
 for file in "$@"
 do
-    fileo=$(mktemp) || exit 1
+    fileo=$(mktemp -t $(basename -- "$file").XXXXXXXX) || exit 1
     hg cat -- "$file" > "$fileo"
     if cmp -s -- "$file" "$fileo"
     then

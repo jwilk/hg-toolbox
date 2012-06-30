@@ -4,6 +4,7 @@ for file in "$@"
 do
     fileo=$(mktemp -t $(basename -- "$file").XXXXXXXX) || exit 1
     hg cat -- "$file" > "$fileo"
+    chmod a-w "$fileo"
     if cmp -s -- "$file" "$fileo"
     then
         :

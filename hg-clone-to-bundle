@@ -34,7 +34,6 @@ do
     name="$url"
     name="${name%/}"
     name="${name##*/}"
-    tmpdir=$(mktemp -d -t hg-clone-to-bundle.XXXXXX)
     if [ -n "$xdest" ]
     then
         dest="$xdest"
@@ -42,6 +41,7 @@ do
         dest="$PWD/${name}.hg"
     fi
     true > "$dest"
+    tmpdir=$(mktemp -d -t hg-clone-to-bundle.XXXXXX)
     hg clone -U "$url" "$tmpdir/repo"
     hg --cwd "$tmpdir/repo" bundle -a "$dest"
     rm -rf "$tmpdir"

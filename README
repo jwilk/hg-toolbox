@@ -1,0 +1,22 @@
+hg-clone-to-bundle
+==================
+
+.. code:: console
+
+   $ hg-clone-to-bundle -h
+   Usage:
+     hg-clone-to-bundle URL [URL...]
+     hg-clone-to-bundle -o FILE URL
+
+   $ hg-clone-to-bundle https://bitbucket.org/stoneleaf/enum34
+   requesting all changes
+   adding changesets
+   adding manifests
+   adding file changes
+   added 60 changesets with 108 changes to 15 files
+   60 changesets found
+   
+   $ file enum34.hg
+   enum34.hg: Mercurial changeset bundle (bzip2 compressed)
+
+.. vim:ft=rst ts=3 sts=3 sw=3 et

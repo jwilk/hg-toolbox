@@ -1,0 +1,50 @@
+#!/bin/sh
+
+# Copyright © 2018 Jakub Wilk <jwilk@jwilk.net>
+# SPDX-License-Identifier: MIT
+
+usage()
+{
+    printf 'Usage:\n  %s URL [URL...]\n  %s -o FILE URL\n' "$prog" "$prog"
+}
+
+set -e -u -C
+prog="${0##*/}"
+xdest=
+while getopts 'ho:' opt
+do
+    case "$opt" in
+        h) usage; exit 0;;
+        o) xdest="$OPTARG";;
+        *) exit 1;;
+    esac
+done
+shift $((OPTIND - 1))
+if [ $# -eq 0 ]
+then
+    usage >&2
+    exit 1
+fi
+if [ -n "$xdest" ] && [ "${xdest#/}" = "$xdest" ]
+then
+    xdest="$PWD/$xdest"
+fi
+for url in "$@"
+do
+    name="$url"
+    name="${name%/}"
+    name="${name##*/}"
+    tmpdir=$(mktemp -d -t hg-clone-to-bundle.XXXXXX)
+    if [ -n "$xdest" ]
+    then
+        dest="$xdest"
+    else
+        dest="$PWD/${name}.hg"
+    fi
+    true > "$dest"
+    hg clone -U "$url" "$tmpdir/repo"
+    hg --cwd "$tmpdir/repo" bundle -a "$dest"
+    rm -rf "$tmpdir"
+done
+
+# vim:ts=4 sts=4 sw=4 et

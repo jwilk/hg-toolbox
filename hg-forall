@@ -4,7 +4,16 @@
 # SPDX-License-Identifier: MIT
 
 set -u
-find -xdev -type d -name '.hg' -print -prune |
+findopts=
+while getopts 'L' opt
+do
+    case "$opt" in
+        L) findopts='-L';;
+        *) exit 1;;
+    esac
+done
+shift $((OPTIND - 1))
+find $findopts . -xdev -type d -name '.hg' -print -prune |
 while read -r dir
 do
     dir="${dir%/.hg}"

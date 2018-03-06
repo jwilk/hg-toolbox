@@ -13,12 +13,14 @@ do
     esac
 done
 shift $((OPTIND - 1))
+template=$(hg --cwd / config forall.template) || template='==> %s <=='
 find $findopts . -xdev -type d -name '.hg' -print -prune |
 while read -r dir
 do
     dir="${dir%/.hg}"
     dir="${dir#./}"
-    printf '[\033[1m%s\033[0m]\n' "$dir"
+    # shellcheck disable=SC2059
+    printf "$template"'\n' "$dir"
     hg --cwd "$dir" "$@"
     printf '\n'
 done

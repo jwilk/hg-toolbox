@@ -3,6 +3,7 @@
 # Copyright © 2016-2018 Jakub Wilk <jwilk@jwilk.net>
 # SPDX-License-Identifier: MIT
 
+set -u
 find -xdev -type d -name '.hg' -print -prune |
 while read -r dir
 do

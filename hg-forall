@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# Copyright © 2016-2018 Jakub Wilk <jwilk@jwilk.net>
+# SPDX-License-Identifier: MIT
+
 for dir in $(find -xdev -type d -name '.hg')
 do
     dir="${dir%/.hg}"

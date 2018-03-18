@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Copyright © 2008-2018 Jakub Wilk <jwilk@jwilk.net>
+# SPDX-License-Identifier: MIT
+
 for file in "$@"
 do
     fileo=$(mktemp -t "$(basename -- "$file").XXXXXXXX") || exit 1

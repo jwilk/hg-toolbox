@@ -15,7 +15,7 @@ hg-clone-to-bundle
    adding file changes
    added 60 changesets with 108 changes to 15 files
    60 changesets found
-   
+
    $ file enum34.hg
    enum34.hg: Mercurial changeset bundle (bzip2 compressed)
 

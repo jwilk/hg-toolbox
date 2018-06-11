@@ -1,9 +1,12 @@
 dist: trusty
 sudo: false
 language: generic
+install:
+- pip install --user pygments restructuredtext-lint
 script:
 - shellcheck hg-*
 - ./hg-clone-to-bundle https://bitbucket.org/stoneleaf/enum34
 - file enum34.hg
+- restructuredtext-lint --encoding=UTF-8 README
 
 # vim:ts=2 sts=2 sw=2 et
